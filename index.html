@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -212,9 +212,6 @@
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -228,16 +225,42 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#ratelimit" class="toc-h1 toc-link" data-title="Ratelimit">Ratelimit</a>
+          </li>
+          <li>
+            <a href="#response-format" class="toc-h1 toc-link" data-title="Response Format">Response Format</a>
+          </li>
+          <li>
+            <a href="#order-model" class="toc-h1 toc-link" data-title="Order Model">Order Model</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#base-object" class="toc-h2 toc-link" data-title="Base Object">Base Object</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#orderbill" class="toc-h2 toc-link" data-title="OrderBill">OrderBill</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#orderfee" class="toc-h2 toc-link" data-title="OrderFee">OrderFee</a>
+                  </li>
+                  <li>
+                    <a href="#ordertax" class="toc-h2 toc-link" data-title="OrderTax">OrderTax</a>
+                  </li>
+                  <li>
+                    <a href="#orderpayment" class="toc-h2 toc-link" data-title="OrderPayment">OrderPayment</a>
+                  </li>
+                  <li>
+                    <a href="#ordercustomer" class="toc-h2 toc-link" data-title="OrderCustomer">OrderCustomer</a>
+                  </li>
+                  <li>
+                    <a href="#orderpromos" class="toc-h2 toc-link" data-title="OrderPromos">OrderPromos</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#order-api" class="toc-h1 toc-link" data-title="Order API">Order API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-orders" class="toc-h2 toc-link" data-title="Get Orders">Get Orders</a>
                   </li>
               </ul>
           </li>
@@ -246,198 +269,670 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://www.cloudwaitress.com'>Back to home</a></li>
+            <li><a href='https://support.cloudwaitress.com'>Support documentation</a></li>
+            <li><a href='https://admin.cloudwaitress.com'>Admin dashboard</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>Welcome to the CloudWaitress API documentation. Contact us if you have any questions</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<pre class="highlight shell tab-shell"><code>curl https://api.cloudwaitress.com/v1/...
+  -H <span class="s2">"Authorization: YOUR_API_KEY"</span>
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Make sure to replace <code>YOUR_API_KEY</code> with your API key.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>CloudWaitress uses API keys to allow access to the API. Register a new API key under your restaurant settings.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>CloudWaitress expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<h1 id='ratelimit'>Ratelimit</h1>
+<p>There is a limit of 60 requests in a 60 second period. After 60 seconds has passed, your limit will be reset.</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>The following headers will be present in each response and will indicate your rate limit details</p>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<table><thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>X-Rate-Limit-Limit</td>
+<td>The number of API requests per 60 seconds allowed</td>
+</tr>
+<tr>
+<td>X-Rate-Limit-Remaining</td>
+<td>The number of API requests you have remaining for this 60 second period</td>
+</tr>
+<tr>
+<td>X-Rate-Limit-Expiry</td>
+<td>The unix timestamp (milliseconds) at which the current 60 second period will expire</td>
+</tr>
+</tbody></table>
+<h1 id='response-format'>Response Format</h1>
+<blockquote>
+<p>Success response, will contain additional fields relating to request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Error response with message key for description</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error message"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>All responses follow a standardised JSON format. The &quot;outcome&quot; key indicates whether the operation was a success. </p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>If the &quot;outcome&quot; is 0, the operation is successful and the response will contain additional data relating to the request.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<p>If the &quot;outcome&quot; is 1, it indicates an error occurred. The &quot;message&quot; key will provide a description of the error.</p>
+<h1 id='order-model'>Order Model</h1><h2 id='base-object'>Base Object</h2>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>_id</td>
+<td>The unique ID of the object</td>
+</tr>
+<tr>
+<td>created</td>
+<td>A unix timestamp of the order creation time (milliseconds)</td>
+</tr>
+<tr>
+<td>restaurant_id</td>
+<td>The unique ID of the restaurant associated with the order</td>
+</tr>
+<tr>
+<td>organisation_id</td>
+<td>The unique ID of the organisation associated with the order</td>
+</tr>
+<tr>
+<td>number</td>
+<td>The order number as shown to the customer and restaurant staff</td>
+</tr>
+<tr>
+<td>status</td>
+<td>The status of the order, can be unconfirmed, confirmed, ready, on_route, complete</td>
+</tr>
+<tr>
+<td>notes</td>
+<td>Any order notes as entered by the customer</td>
+</tr>
+<tr>
+<td>bill</td>
+<td>See OrderBill object</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>See OrderPayment object</td>
+</tr>
+<tr>
+<td>customer</td>
+<td>See OrderCustomer object</td>
+</tr>
+<tr>
+<td>promos</td>
+<td>See OrderPromo object. Contains an array of the OrderPromo object</td>
+</tr>
+<tr>
+<td>dishes</td>
+<td>See OrderDish object. Contains an array of the OrderDish object</td>
+</tr>
+<tr>
+<td>config</td>
+<td>See OrderConfig object</td>
+</tr>
+<tr>
+<td>ready_in</td>
+<td>See OrderReadyIn object. This field optional and may be undefined depending on the restaurants settings</td>
+</tr>
+<tr>
+<td>delivery_in</td>
+<td>See OrderDeliveryIn object. This field optional and may be undefined depending on the restaurants settings</td>
+</tr>
+</tbody></table>
+<h2 id='orderbill'>OrderBill</h2>
+<p>Represents the order totals as shown to the customer</p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>3 letter code currency of the bill</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>Total order value as number</td>
+</tr>
+<tr>
+<td>total_cents</td>
+<td>number</td>
+<td>Total order value in cents</td>
+</tr>
+<tr>
+<td>cart</td>
+<td>number</td>
+<td>Total value of the customers cart</td>
+</tr>
+<tr>
+<td>discount</td>
+<td>number</td>
+<td>Total value of any discount that has been applied</td>
+</tr>
+<tr>
+<td>taxes</td>
+<td>OrderTax</td>
+<td>Contains an array of OrderTax objects</td>
+</tr>
+<tr>
+<td>tax_in_prices</td>
+<td>boolean</td>
+<td>Indicates whether the prices include tax or whether tax has been added onto the cart total</td>
+</tr>
+<tr>
+<td>fees</td>
+<td>OrderFee</td>
+<td>Contains an array of OrderFee objects</td>
+</tr>
+</tbody></table>
+<h2 id='orderfee'>OrderFee</h2>
+<p>Represents a fee that may be added to the customers cart based on certain conditions</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>_id</td>
+<td>string</td>
+<td>Unique ID of the fee</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The display name</td>
+</tr>
+<tr>
+<td>fixed_value</td>
+<td>number</td>
+<td>The fixed value of this fee</td>
+</tr>
+<tr>
+<td>percent_value</td>
+<td>number</td>
+<td>The percentage value of this fee</td>
+</tr>
+<tr>
+<td>value</td>
+<td>number</td>
+<td>The final value of this fee which is added to the customers cart</td>
+</tr>
+<tr>
+<td>is_payment_fee</td>
+<td>boolean</td>
+<td>Indicates if this fee is due to a payment based condition</td>
+</tr>
+<tr>
+<td>voided</td>
+<td>boolean</td>
+<td>Indicates whether this fee has been voided</td>
+</tr>
+</tbody></table>
+<h2 id='ordertax'>OrderTax</h2>
+<p>Represents the order totals as shown to the customer</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>_id</td>
+<td>string</td>
+<td>Unique ID of the tax</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The display name of this tax</td>
+</tr>
+<tr>
+<td>rate</td>
+<td>number</td>
+<td>The % value of this tax, 10% is simply the value 10</td>
+</tr>
+<tr>
+<td>compound</td>
+<td>boolean</td>
+<td>Whether this tax value should compound with order taxes</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>The value of this tax in the customers bill</td>
+</tr>
+</tbody></table>
+<h2 id='orderpayment'>OrderPayment</h2>
+<p>Represents the payment details relating to an order</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>method</td>
+<td>string</td>
+<td>cash, card, stripe, paypal, paygate_payweb, poli_pay, ipay88, bambora_apac</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>The final payment currency, may be different if an online payment processor is used</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>The final payment total</td>
+</tr>
+<tr>
+<td>total_cents</td>
+<td>number</td>
+<td>The final payment total in cents</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>success, pending, error</td>
+</tr>
+<tr>
+<td>reference</td>
+<td>string</td>
+<td>The reference payment ID as returned by a payment processor</td>
+</tr>
+<tr>
+<td>reference_status</td>
+<td>string</td>
+<td>The reference payment status as returned by a payment processor</td>
+</tr>
+<tr>
+<td>error</td>
+<td>string</td>
+<td>The error description if an error occurred with the payment</td>
+</tr>
+</tbody></table>
+<h2 id='ordercustomer'>OrderCustomer</h2>
+<p>Represents the customer details relating to the order</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>_id</td>
+<td>string</td>
+<td>Unique customer ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name as entered by the customer</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>Phone number entered by the customer</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>Email entered by the customer</td>
+</tr>
+</tbody></table>
+<h2 id='orderpromos'>OrderPromos</h2>
+<p>Represents the payment details relating to the order</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>_id</td>
+<td>string</td>
+<td>Unique ID of this promo</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Display name</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>The code entered by a customer to redeem this promo</td>
+</tr>
+<tr>
+<td>fixed_discount</td>
+<td>number</td>
+<td>Fixed discount value of the promo</td>
+</tr>
+<tr>
+<td>percent_discount</td>
+<td>number</td>
+<td>Percentage discount value of the promo</td>
+</tr>
+<tr>
+<td>min_order</td>
+<td>number / &quot;&quot;</td>
+<td>Minimum cart order required</td>
+</tr>
+<tr>
+<td>max_uses</td>
+<td>number / &quot;&quot;</td>
+<td>Maximum total uses allowed by this promo</td>
+</tr>
+<tr>
+<td>auto_apply</td>
+<td>boolean</td>
+<td>Is this promo automatically applied if possible</td>
+</tr>
+<tr>
+<td>once_per_customer</td>
+<td>boolean</td>
+<td>Indicates promo limited to one use per customer</td>
+</tr>
+<tr>
+<td>logged_in_only</td>
+<td>boolean</td>
+<td>Indicates promo is only for customers who are registered</td>
+</tr>
+<tr>
+<td>valid_times</td>
+<td>Array&lt;{ &quot;start&quot;: number, &quot;end&quot;: number }&gt;</td>
+<td>Array of objects containing the keys start and end. Each of this has a unix timestamp (milliseconds) indicating the valid periods of this promo</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>boolean</td>
+<td>Indicates whether promo has been disabled by the restaurant</td>
+</tr>
+</tbody></table>
+<h1 id='order-api'>Order API</h1><h2 id='get-orders'>Get Orders</h2><pre class="highlight shell tab-shell"><code>curl https://api.cloudwaitress.com/v1/orders <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: YOUR_API_KEY"</span> <span class="se">\ </span>
+  -d <span class="sb">`</span>
+    <span class="o">{</span>
+      <span class="s2">"limit"</span>: 10,
+      <span class="s2">"page"</span>: 1,
+      <span class="s2">"sort"</span>: <span class="o">{</span> <span class="s2">"created"</span>: -1 <span class="o">}</span>,
+    <span class="o">}</span>
+  <span class="sb">`</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Returns</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1553398645547</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"restaurant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"organisation_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unconfirmed"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cart"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"discount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GST"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"compound"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.91</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"tax_in_prices"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fees"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"payment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"total_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reference_status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234 1234"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name@example.com"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"promos"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="s2">"dishes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"H1x3H2LZV"</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"standard"</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"menu_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"rJMFG38ZN"</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"category_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BJb0Z3IbN"</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hawaiian"</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"display_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"price"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"subtitle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"tags"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> 
+              </span><span class="s2">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"ingredients"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"rkjKBnU-N"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Tomato Base"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"active"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                  </span><span class="p">},</span><span class="w"> 
+                  </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"HkOcB3U-4"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Ham"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"active"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                  </span><span class="p">},</span><span class="w"> 
+                  </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SkCqB3UZV"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Pineapple"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"active"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                  </span><span class="p">},</span><span class="w"> 
+                  </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"B1FornIWN"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Cheese"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"active"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+              </span><span class="p">],</span><span class="w"> 
+              </span><span class="s2">"option_sets"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SkQoU2UbV"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Base Choice"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"display_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"conditions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                          </span><span class="s2">"required"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"multi_select"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"quantity_select"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"min_options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"max_options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"free_amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+                      </span><span class="p">},</span><span class="w"> 
+                      </span><span class="s2">"options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                          </span><span class="p">{</span><span class="w">
+                              </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2y53KyrXg"</span><span class="p">,</span><span class="w"> 
+                              </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Gluten Free"</span><span class="p">,</span><span class="w"> 
+                              </span><span class="s2">"price"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"4.0"</span><span class="p">,</span><span class="w"> 
+                              </span><span class="s2">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+                          </span><span class="p">}</span><span class="w">
+                      </span><span class="p">]</span><span class="w">
+                  </span><span class="p">},</span><span class="w"> 
+                  </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"rJI3G4uZV"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Extra Toppings"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"display_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"conditions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                          </span><span class="s2">"required"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"multi_select"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"quantity_select"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"min_options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"max_options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"free_amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+                      </span><span class="p">},</span><span class="w"> 
+                      </span><span class="s2">"options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+                      </span><span class="p">]</span><span class="w">
+                  </span><span class="p">},</span><span class="w"> 
+                  </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"-ef37By_T"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Extra Swirls / Sauces"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"display_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                      </span><span class="s2">"conditions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                          </span><span class="s2">"required"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"multi_select"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"quantity_select"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"min_options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"max_options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                          </span><span class="s2">"free_amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+                      </span><span class="p">},</span><span class="w"> 
+                      </span><span class="s2">"options"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+                      </span><span class="p">]</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+              </span><span class="p">],</span><span class="w"> 
+              </span><span class="s2">"price_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"standard"</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"choices"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+              </span><span class="p">],</span><span class="w"> 
+              </span><span class="s2">"qty"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"notes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"service"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"pickup"</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"due"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"later"</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-11"</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"08:30"</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"destination"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"destination_misc"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"lat"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"lng"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"distance"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"driving_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"zone"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"table"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"table_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"table_password"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"number_of_people"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"confirmed"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"ready_in"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1553398891787</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"delivery_in"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1553398891787</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all kittens.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p><code>POST https://api.cloudwaitress.com/v1/orders</code></p>
+<h3 id='request-parameters'>Request Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
+<th>Key</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>restaurant_id</td>
+<td>yes</td>
+<td>The ID of the restaurant to query orders from</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>limit</td>
+<td>yes</td>
+<td>The number of orders to include in the request. Maximum is 20</td>
+</tr>
+<tr>
+<td>page</td>
+<td>yes</td>
+<td>Specifies which page of orders to retrieve. A value of 1 with the limit 10 will return the first 10 orders based on the sort value. A value of 2 will return orders 10-20.</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>yes</td>
+<td>Species how the orders will be sorted. The value to {&quot;created&quot;: -1} sorts orders from new to old. A value of {&quot;created&quot;: 1} will sort the orders from old to new.</td>
 </tr>
 </tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id='response-parameters'>Response Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Key</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>count</td>
+<td>number</td>
+<td>The total amount of orders available to query from</td>
 </tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>items</td>
+<td>Order[]</td>
+<td>List of orders based on request limit, page and sort. See order model for details</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>The CloudWaitress API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -447,47 +942,23 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Bad Request -- Your request is invalid</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Unauthorized -- Your API key is wrong</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>Not Found -- This requested route is not found</td>
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests -- You have exceeded your ratelimit</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later</td>
 </tr>
 </tbody></table>
 
@@ -495,9 +966,6 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
