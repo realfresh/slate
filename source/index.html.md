@@ -189,6 +189,7 @@ curl https://api.cloudwaitress.com/v1/orders \
   -H "Authorization: YOUR_API_KEY" \ 
   -d `
     {
+      "restaurant_id": "xxxxxxx",
       "limit": 10,
       "page": 1,
       "sort": { "created": -1 },
