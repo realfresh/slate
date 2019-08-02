@@ -374,7 +374,7 @@ curl https://api.cloudwaitress.com/v1/orders \
 }
 ```
 
-This endpoint retrieves all kittens.
+This endpoint will retrieve all your orders
 
 ### HTTP Request
 
@@ -395,4 +395,88 @@ Key | Type | Description
 --------- | ----------- | -----------
 count | number | The total amount of orders available to query from
 items | Order[] | List of orders based on request limit, page and sort. See order model for details
+
+# Webhooks
+
+Webhooks are used to receive system events via a HTTPS request. In the admin dashboard, you can create webhooks under your restaurant settings.
+
+When creating a webhook, you my specify a HTTPS endpoint that will be notified when an event occurs. 
+
+Your HTTPS endpoint will be called via `POST` request and will contain data in `JSON` format.
+
+**For data security reasons, your endpoint must use `https://` security, otherwise it will not be called**
+
+## Webhook Object
+
+The data sent to your webhook will be a `JSON` object with the following properties
+
+```json
+{
+  "secret": "47a7868c-3d9c-4934-a4b7-e2790074a93b",
+  "event": "order_new",
+  "event_id": "WPHr9a0r4B-ePQBTadzWs",
+  "restaurant_id": "BaePHWr9a0B5Tadzr4QsK",
+  "data": {}
+}
+```
+
+Key | Type | Description
+--------- | ----------- | -----------
+secret | string | Your webhook secret key that is used to validate the origin of the request
+event | string | The name of the event that triggered the webhook. See event types below
+event_id | string | A unique ID for the event. Can be used as an idempotency key to ensure events aren't processed twice
+restaurant_id | string | The restaurant ID that owns this event and webhook
+data | object | The data supplied for the event, see event types below for what data is included with each event
+
+## Processing Event & Verifying Secret
+
+```js
+// Node.js express server example
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const port = 3000
+const mySecretKey = "..."
+
+app.use(bodyParser.json())
+
+app.post('/webhook-path', (request, response) => {
+
+  const data = request.body;
+
+  // CHECK SECRET KEY
+  if (data.secret !== mySecretKey) {
+    return res.end()
+  }
+
+  // PROCESS EVENT HERE & SEND OK RESPONSE
+  response.send("OK")
+
+})
+
+app.listen(port, () => console.log(`Server listening on port ${port}`))
+```
+
+Be sure to validate the origin of the webhook request using the `secret` key sent in the request. You can use this to perform a equality comparison against the `secret` key provided in the admin dashboard. If the `secret` does not match, you should not process the event.
+
+## Event Types
+
+Event Name | Data Provided | Description
+--------- | ----------- | -----------
+order_new | order, customer | Triggered when a new order is placed
+order_update_status | order, customer | Triggered when an order's status has been updated
+order_update_ready_time | order, customer | Triggered when an order's ready time has been updated
+booking_new | booking, customer | Triggered when a new booking is placed
+booking_update_status | booking, customer | Triggered when a booking's status has been updated
+
+## Re-try Behavior
+
+If your webhook fails due to one of the following circumstances:
+
+- Could not connect to your endpoint
+- Receives an error status code from your endpoint
+
+The webhook service will make 3 additional attempts to resend the event. There will be a 30 second delay between each attempt.
+
+If all attempts fail, the webhook event will be dropped.
 
